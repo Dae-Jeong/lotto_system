@@ -1,0 +1,1 @@
+from .lotto_result import LottoResult
