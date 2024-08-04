@@ -71,7 +71,7 @@ class SeleniumCrawlerService(CrawlerService):
 
     def crawl_winning_lottery(self):
         self.get_driver()
-        page_number = 112
+        page_number = 1
 
         while True:
             page_url = get_lottery_page_url(page_number=page_number)
