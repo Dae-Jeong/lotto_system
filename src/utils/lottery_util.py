@@ -15,7 +15,7 @@ def get_lottery_number_from_img_src(img_src: str):
     :param img_src:
     :return:
     """
-    return img_src.split("/")[-1].split(".")[0]
+    return int(img_src.split("/")[-1].split(".")[0])
 
 
 def generate_lottery_numbers() -> tuple[list[int], int]:

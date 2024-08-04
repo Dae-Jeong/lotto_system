@@ -24,7 +24,7 @@ class LotteryService(ABC):
         ...
 
     @abstractmethod
-    def get_lottery_by_draw_date(self, draw_date: str):
+    def get_lottery_by_round_number(self, round_number: int):
         ...
 
 
@@ -58,5 +58,5 @@ class LotteryServiceV0(LotteryService):
     def get_all_lottery(self):
         return self.lottery_repository.find_all_lottery()
 
-    def get_lottery_by_draw_date(self, draw_date: str):
-        pass
+    def get_lottery_by_round_number(self, round_number: int):
+        return self.lottery_repository.find_lottery_by_round_number(round_number=round_number)

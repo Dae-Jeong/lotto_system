@@ -127,7 +127,7 @@ class SeleniumCrawlerService(CrawlerService):
             lottery_number = get_lottery_number_from_img_src(img_src=img_src)
             numbers.append(lottery_number)
 
-        return numbers[:-2], numbers[-1]
+        return numbers[:-1], numbers[-1]
 
     def __save_lottery(self, lottery: Lottery) -> None:
         self.lottery_repository.save_lottery(lottery=lottery)

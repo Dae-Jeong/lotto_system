@@ -1,6 +1,4 @@
 from models.enums import LottoResult
-from utils import calculate_round_number
-from datetime import date
 
 
 class Lottery:
@@ -14,9 +12,9 @@ class Lottery:
         self.__winning_numbers = winning_numbers
         self.__bonus_number = bonus_number
 
-    def __str__(self):
-        return ("{0} / {1} / {2} / {3}"
-                .format(self.__round_number, self.__draw_date, self.__winning_numbers, self.__bonus_number))
+    # def __str__(self):
+    #     return ("{0} / {1} / {2} / {3}"
+    #             .format(self.__round_number, self.__draw_date, self.__winning_numbers, self.__bonus_number))
 
     @property
     def round_number(self):
@@ -28,7 +26,7 @@ class Lottery:
 
     @property
     def winning_numbers(self):
-        return self.__winning_numbers
+        return str(self.__winning_numbers)
 
     @property
     def bonus_number(self):
@@ -67,11 +65,33 @@ class Lottery:
 
 class PurchasedLottery:
     def __init__(self,
+                 purchased_lottery_id,
+                 round_number,
                  winning_numbers,
                  bonus_number):
 
-        today = date.today().strftime("YYYY-mm-dd")
-        super().__init__(round_number=calculate_round_number(today=today),
-                         winning_numbers=winning_numbers,
-                         bonus_number=bonus_number)
+        self.__purchased_lottery_id = purchased_lottery_id
+        self.__round_number = round_number
+        self.__winning_numbers = winning_numbers
+        self.__bonus_number = bonus_number
 
+        # today = date.today().strftime("YYYY-mm-dd")
+        # super().__init__(round_number=calculate_round_number(today=today),
+        #                  winning_numbers=winning_numbers,
+        #                  bonus_number=bonus_number)
+
+    @property
+    def purchased_lottery_id(self):
+        return self.__purchased_lottery_id
+
+    @property
+    def round_number(self):
+        return self.__round_number
+
+    @property
+    def winning_numbers(self):
+        return self.__winning_numbers
+
+    @property
+    def bonus_number(self):
+        return self.__bonus_number
