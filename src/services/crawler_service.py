@@ -8,6 +8,7 @@ from models import Lottery
 
 from requests.exceptions import HTTPError
 import requests
+import time
 
 """
 로또 결과 조회 페이지 : https://www.lotto.co.kr/article/list/AC01
@@ -70,7 +71,7 @@ class SeleniumCrawlerService(CrawlerService):
 
     def crawl_winning_lottery(self):
         self.get_driver()
-        page_number = 1
+        page_number = 112
 
         while True:
             page_url = get_lottery_page_url(page_number=page_number)
@@ -81,16 +82,21 @@ class SeleniumCrawlerService(CrawlerService):
                 print(http_error)  # 400, 500번대 오류 발생으로 인해 발생
                 break
 
+            time.sleep(1)  # 충분히 페이지가 로딩되길 기다리는 시간
             lottery_winning_ul_element = self.get_element(by="class", value="wnr_cur_list")
             lottery_winning_li_elements = self.get_elements(by="tag name",
                                                             value="li",
                                                             element=lottery_winning_ul_element)
+
+            if not len(lottery_winning_li_elements):
+                break
 
             for lottery_winning_li_element in lottery_winning_li_elements:
                 winning_lottery = self.__get_winning_lottery(element=lottery_winning_li_element)
                 self.__save_lottery(lottery=winning_lottery)
 
             page_number += 1
+            time.sleep(2)  # 다음 요청까지의 시간 여유 확보
 
         self.quit_driver()
 
@@ -99,7 +105,7 @@ class SeleniumCrawlerService(CrawlerService):
                                                           value="span",
                                                           element=element)
 
-        round_number = int(lottery_winning_span_elements[0].text[:-2])
+        round_number = int(lottery_winning_span_elements[0].text[:-1])
         draw_date = lottery_winning_span_elements[1].text
         winning_numbers, bonus_number = self.__get_winning_numbers_and_bonus_number(
             element=lottery_winning_span_elements[2]
