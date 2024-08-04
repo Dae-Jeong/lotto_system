@@ -17,18 +17,42 @@ class LotteryService(ABC):
 
     @abstractmethod
     def purchase_lottery(self, purchase_mode: str) -> None:
+        """
+        로또를 구매하는 로직입니다.
+        자동, 수동 모드를 선택할 수 있습니다.
+
+        :param str purchase_mode: 모드를 선택하는 값
+        """
         ...
 
     @abstractmethod
     def check_lottery(self, purchased_lottery_id: str) -> None:
+        """
+        로또 당첨 여부를 확인하는 로직입니다.
+        로또 구매 시, 반환된 ID값을 기준으로 확인이 가능합니다.
+        결과에 따라 1등 부터 꽝까지의 결과가 출력됩니다.
+
+        :param purchased_lottery_id: 당첨 여부를 확인할 로또의 ID
+        """
         ...
 
     @abstractmethod
     def get_all_lottery(self) -> list[Lottery]:
+        """
+        모든 회차의 로또 정보를 조회하는 로직입니다.
+
+        :return list[Lottery]: 조회된 Lottery 객체를 담은 리스트를 반환합니다.
+        """
         ...
 
     @abstractmethod
     def get_lottery_by_round_number(self, round_number: int) -> Lottery:
+        """
+        회차 정보를 기반으로 해당 회차의 로또 정보를 조회하는 로직입니다.
+
+        :param int round_number: 조회에 활용할 회차 정보입니다.
+        :return Lottery: 조회된 Lottery 객체를 반환합니다.
+        """
         ...
 
 
